@@ -62,36 +62,6 @@ void ADummyGitHubCharacter::SetupPlayerInputComponent(class UInputComponent* Pla
 	PlayerInputComponent->BindAxis("TurnRate", this, &ADummyGitHubCharacter::TurnAtRate);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ADummyGitHubCharacter::LookUpAtRate);
-
-	// handle touch devices
-	PlayerInputComponent->BindTouch(IE_Pressed, this, &ADummyGitHubCharacter::TouchStarted);
-	PlayerInputComponent->BindTouch(IE_Released, this, &ADummyGitHubCharacter::TouchStopped);
-
-	// VR headset functionality
-	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &ADummyGitHubCharacter::OnResetVR);
-}
-
-
-void ADummyGitHubCharacter::OnResetVR()
-{
-	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
-}
-
-void ADummyGitHubCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
-{
-	// jump, but only on the first touch
-	if (FingerIndex == ETouchIndex::Touch1)
-	{
-		Jump();
-	}
-}
-
-void ADummyGitHubCharacter::TouchStopped(ETouchIndex::Type FingerIndex, FVector Location)
-{
-	if (FingerIndex == ETouchIndex::Touch1)
-	{
-		StopJumping();
-	}
 }
 
 void ADummyGitHubCharacter::TurnAtRate(float Rate)
